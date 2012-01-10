@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import mmo.Core.ChatAPI.MMOChatEvent;
 import mmo.Core.MMO;
 import mmo.Core.MMOListener;
@@ -33,13 +34,15 @@ public class MMOChatTitle extends MMOPlugin {
 
 	static public boolean config_always_show = false;
 	static public int config_max_titles = 1;
+	static public String config_stop = "!!!";
 	static public List<String> config_default = new ArrayList<String>();
-	static public LinkedHashMap<String, String> default_perms = new LinkedHashMap<String, String>();
+	static public Map<String, String> default_perms = new LinkedHashMap<String, String>();
 
 	@Override
 	public void loadConfiguration(Configuration cfg) {
 		config_always_show = cfg.getBoolean("always_show", config_always_show);
 		config_max_titles = cfg.getInt("max_titles", config_max_titles);
+		config_stop = cfg.getString("stop", config_stop);
 		config_default = cfg.getStringList("default", config_default);
 		default_perms.clear();
 		for (String arg : config_default) {
@@ -59,9 +62,9 @@ public class MMOChatTitle extends MMOPlugin {
 					@Override
 					public void onMMOChat(MMOChatEvent event) {
 						if (config_always_show || event.hasFilter("Title")) {
-							LinkedList<String> title = new LinkedList<String>();
+							LinkedList<String> titles = new LinkedList<String>();
 							Player from = event.getPlayer();
-							LinkedHashMap<String, String> perms = (LinkedHashMap<String, String>) default_perms.clone();
+							Map<String, String> perms = new LinkedHashMap<String, String>(default_perms);
 							for (String arg : event.getArgs("Title")) {
 								String[] perm = arg.split("=");
 								if (perm.length == 2) {
@@ -70,15 +73,19 @@ public class MMOChatTitle extends MMOPlugin {
 							}
 							for (String arg : perms.keySet()) {
 								if (from.hasPermission(arg)) {
-									title.add(perms.get(arg));
-									if (config_max_titles > 0 && title.size() >= config_max_titles) {
+									String title = perms.get(arg);
+									if (!config_stop.isEmpty() && config_stop.equals(title)) {
+										break;
+									}
+									titles.add(title);
+									if (config_max_titles > 0 && titles.size() >= config_max_titles) {
 										break;
 									}
 								}
 							}
-							if (!title.isEmpty()) {
+							if (!titles.isEmpty()) {
 								for (Player to : event.getRecipients()) {
-									event.setFormat(to, event.getFormat(to).replaceAll("%2\\$s", MMO.join(title, " ") + " %2\\$s"));
+									event.setFormat(to, event.getFormat(to).replaceAll("%2\\$s", MMO.join(titles, " ") + " %2\\$s"));
 								}
 							}
 						}
