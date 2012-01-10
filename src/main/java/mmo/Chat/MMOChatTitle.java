@@ -34,7 +34,7 @@ public class MMOChatTitle extends MMOPlugin {
 
 	static public boolean config_always_show = false;
 	static public int config_max_titles = 1;
-	static public String config_stop = "!!!";
+	static public String config_stop_prefix = "!!!";
 	static public List<String> config_default = new ArrayList<String>();
 	static public Map<String, String> default_perms = new LinkedHashMap<String, String>();
 
@@ -42,7 +42,7 @@ public class MMOChatTitle extends MMOPlugin {
 	public void loadConfiguration(Configuration cfg) {
 		config_always_show = cfg.getBoolean("always_show", config_always_show);
 		config_max_titles = cfg.getInt("max_titles", config_max_titles);
-		config_stop = cfg.getString("stop", config_stop);
+		config_stop_prefix = cfg.getString("stop_prefix", config_stop_prefix);
 		config_default = cfg.getStringList("default", config_default);
 		default_perms.clear();
 		for (String arg : config_default) {
@@ -72,15 +72,22 @@ public class MMOChatTitle extends MMOPlugin {
 								}
 							}
 							for (String arg : perms.keySet()) {
+								boolean end = false;
 								if (from.hasPermission(arg)) {
 									String title = perms.get(arg);
-									if (!config_stop.isEmpty() && config_stop.equals(title)) {
-										break;
+									if (!config_stop_prefix.isEmpty() && title.startsWith(config_stop_prefix)) {
+										end = true;
+										title = title.substring(config_stop_prefix.length()).trim();
 									}
-									titles.add(title);
+									if (!title.isEmpty()) {
+										titles.add(title);
+									}
 									if (config_max_titles > 0 && titles.size() >= config_max_titles) {
-										break;
+										end = true;
 									}
+								}
+								if (end) {
+									break;
 								}
 							}
 							if (!titles.isEmpty()) {
