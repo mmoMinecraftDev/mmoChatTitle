@@ -16,10 +16,16 @@
  */
 package mmo.Chat;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
 import mmo.Core.ChatAPI.MMOChatEvent;
 import mmo.Core.MMO;
 import mmo.Core.MMOPlugin;
+
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -27,7 +33,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 
 public class MMOChatTitle extends MMOPlugin implements Listener {
-
 	public static boolean config_always_show = false;
 	public static int config_max_titles = 1;
 	public static String config_stop_prefix = "!!!";
