@@ -31,6 +31,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class MMOChatTitle extends MMOPlugin implements Listener {
 	public static boolean config_always_show = false;
@@ -41,6 +42,7 @@ public class MMOChatTitle extends MMOPlugin implements Listener {
 
 	@Override
 	public void loadConfiguration(final FileConfiguration cfg) {
+		 
 		config_always_show = cfg.getBoolean("always_show", config_always_show);
 		config_max_titles = cfg.getInt("max_titles", config_max_titles);
 		config_stop_prefix = cfg.getString("stop_prefix", config_stop_prefix);
@@ -59,10 +61,10 @@ public class MMOChatTitle extends MMOPlugin implements Listener {
 	@Override
 	public void onEnable() {
 		super.onEnable();
-		pm.registerEvents(this, this);
+		pm.registerEvents(this, this);		
 	}
 
-	@EventHandler(priority = EventPriority.HIGH)
+	@EventHandler (priority = EventPriority.HIGH)
 	public void onMMOChat(final MMOChatEvent event) {
 		if (config_always_show || event.hasFilter("Title")) {
 			final List<String> titles = new LinkedList<String>();
