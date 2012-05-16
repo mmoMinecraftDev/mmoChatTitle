@@ -1,8 +1,8 @@
 name: mmoChatTitle
-main: mmo.Chat.MMOChatTitle
-version: 1.1
-website: http://forums.bukkit.org/threads/
-author: Rycochet <rycochet@rycochet.com>
-depend: [Spout,mmoCore,mmoChat]
+version: ${releaseVersion} b${buildNumber}
+description: Adds a permissions based "Title" filter to mmoChat.
+author: mmoMinecraftDev
+website: http://mmo.me.uk
 
-description: Adds a permissions based "Title" to the chat filters
+main: mmo.Chat.MMOChatTitle
+depend: [Spout, mmoCore, mmoChat]
