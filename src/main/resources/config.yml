@@ -1,0 +1,11 @@
+# #ChatTitle Configuration
+always_show: true
+default:
+- superadmin.title=[&4Super-Admin&f]
+- admin.title=[&cAdmin&f]
+- mod.title=[&1Mod&f]
+- supermember.title=[&2SuperMember&f]
+- member.title=[&3Member&f]
+- guest.title=[Guest]
+max_titles: 1
+stop_prefix: '!!!'

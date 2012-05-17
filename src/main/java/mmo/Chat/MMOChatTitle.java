@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.Map;
 
 import mmo.Core.ChatAPI.MMOChatEvent;
+import mmo.Core.MMOPlugin.Support;
+import mmo.Core.util.EnumBitSet;
 import mmo.Core.MMO;
 import mmo.Core.MMOPlugin;
 
@@ -40,6 +42,12 @@ public class MMOChatTitle extends MMOPlugin implements Listener {
 	public static List<String> config_default = new ArrayList<String>();
 	public static Map<String, String> default_perms = new LinkedHashMap<String, String>();
 
+	@Override
+	public EnumBitSet mmoSupport(EnumBitSet support) {
+		support.set(Support.MMO_AUTO_EXTRACT);
+		return support;
+	}
+	
 	@Override
 	public void loadConfiguration(final FileConfiguration cfg) {
 		 
