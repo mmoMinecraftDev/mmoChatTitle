@@ -15,6 +15,7 @@
 		<spoutVersion>dev-SNAPSHOT</spoutVersion>
 		<coreVersion>2.3-SNAPSHOT</coreVersion>
 		<chatVersion>1.8-SNAPSHOT</chatVersion>
+		<buildNumber>0</buildNumber>
 	</properties>
 
 	<!-- License -->
