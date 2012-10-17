@@ -32,10 +32,12 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class MMOChatTitle extends MMOPlugin implements Listener {
+public final class MMOChatTitle extends MMOPlugin implements Listener {
+	protected static final HandlerList handlers = new HandlerList();
 	public static boolean config_always_show = false;
 	public static int config_max_titles = 1;
 	public static String config_stop_prefix = "!!!";
@@ -72,8 +74,16 @@ public class MMOChatTitle extends MMOPlugin implements Listener {
 		pm.registerEvents(this, this);		
 	}
 
-	@EventHandler (priority = EventPriority.HIGH)
-	public void onMMOChat(final MMOChatEvent event) {
+	public HandlerList getHandlers() {
+		return handlers;
+	}
+
+	public static HandlerList getHandlerList() {
+		return handlers;
+	}
+	
+	@EventHandler(priority = EventPriority.HIGH)
+	public void onMMOChat(final MMOChatEvent event) {		
 		if (config_always_show || event.hasFilter("Title")) {
 			final List<String> titles = new LinkedList<String>();
 			final Player from = event.getPlayer();
