@@ -82,7 +82,7 @@ public final class MMOChatTitle extends MMOPlugin implements Listener {
 		return handlers;
 	}
 	
-	@EventHandler(priority = EventPriority.HIGH)
+	@EventHandler(priority = EventPriority.LOW)
 	public void onMMOChat(final MMOChatEvent event) {		
 		if (config_always_show || event.hasFilter("Title")) {
 			final List<String> titles = new LinkedList<String>();
@@ -115,7 +115,7 @@ public final class MMOChatTitle extends MMOPlugin implements Listener {
 			}
 			if (!titles.isEmpty()) {
 				for (Player to : event.getRecipients()) {
-					event.setFormat(to, event.getFormat(to).replaceAll("%2\\$s", MMO.join(titles, " ") + " %2\\$s"));
+					event.setFormat(to, event.getFormat(to).replaceAll("%2\\$s", MMO.join(titles, " ") + " %2\\$s"));					
 				}
 			}
 		}
