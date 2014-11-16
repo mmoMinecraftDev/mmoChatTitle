@@ -34,7 +34,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
-import org.getspout.spoutapi.player.SpoutPlayer;
 
 public final class MMOChatTitle extends MMOPlugin implements Listener {
 	protected static final HandlerList handlers = new HandlerList();

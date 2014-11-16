@@ -5,4 +5,4 @@ author: mmoMinecraftDev
 website: http://mmo.me.uk
 
 main: mmo.Chat.MMOChatTitle
-depend: [Spout, mmoCore, mmoChat]
+depend: [mmoCore, mmoChat]
